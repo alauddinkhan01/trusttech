@@ -39,7 +39,7 @@ class PostController extends Controller
             $allCategories = $this->postService->getAllCategories();
             return Inertia::render('Posts/CreateOrUpdatePost',compact('allTags','allCategories','post'));
         }else{
-            return redirect()->route('posts.list');
+            return redirect()->route('posts.list')->with('error','Unauthorize Action');
         }
     }
 
@@ -59,7 +59,7 @@ class PostController extends Controller
     public function deletePost($id){
        $status = $this->postService->deletePost($id);
         if (!$status) {
-            return redirect()->route('posts.list');
+            return redirect()->route('posts.list')->with('error','Unauthorize Action');
         }else{
             return redirect()->route('posts.list')->with('success','Post deleted successfully!');
         }

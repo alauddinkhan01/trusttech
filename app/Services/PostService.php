@@ -75,10 +75,18 @@ class PostService extends BaseService {
         $user = Auth::user();
         if($user->hasRole('user')){
            $post = $this->postRepository->getUserPost($id);
-           return $post->load('user');
+           if ($post) {
+            return $post->load('user');
+           }else{
+            return false;
+           }
         }elseif($user->hasRole('admin')){
            $post = $this->postRepository->find(new Post(), $id);
-           return $post->load('user');
+           if ($post) {
+            return $post->load('user');
+           }else{
+            return false;
+           }
 
         }
     }

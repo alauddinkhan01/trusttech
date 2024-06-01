@@ -10,6 +10,7 @@ import { useToast } from "primevue/usetoast";
 import Dialog from 'primevue/dialog';
 
 const flashSuccess = usePage().props.flash.success;
+const flashError = usePage().props.flash.error;
 
 
 const toast = useToast();
@@ -29,6 +30,7 @@ const openPosition = (pos,id) => {
 onMounted(() => {
   getPost();
   show();
+  showBottomRight();
 });
 
 const show = () => {
@@ -36,6 +38,12 @@ const show = () => {
       toast.add({ severity: 'success', summary: 'Success', detail: flashSuccess, group: 'br', life: 3000 });
 
     }
+};
+
+const showBottomRight = () => {
+  if (flashError) {
+    toast.add({ severity: 'warn', summary: 'Warning', detail: flashError, group: 'br', life: 3000 });
+  }
 };
 
 function getPost() {
